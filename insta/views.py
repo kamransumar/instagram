@@ -36,7 +36,7 @@ def new_location(request):
 @login_required(login_url='/accounts/login/')
 def new_post(request):
     current_user = request.user
-    profile = Profile.objects.get(username=current_user)
+    profile = Profile.objects.filter(username=current_user)
 
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -79,7 +79,7 @@ def profile(request):
         return redirect('profile.html')
 
     try:
-        profile = Profile.objects.get(username=current_user)
+        profile = Profile.objects.filter(username=current_user)
         posts = Post.objects.filter(username_id=current_user_id)
         title = profile.name
         username = profile.username
@@ -144,7 +144,7 @@ def like(request):
 
     likes = 0
     if post_id:
-        post = Post.objects.get(id=int(post_id))
+        post = Post.objects.filter(id=int(post_id))
         if post:
             likes = post.likes + 1
             post.likes =  likes
