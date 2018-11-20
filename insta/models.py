@@ -46,7 +46,7 @@ class Profile(models.Model):
 
     @classmethod
     def search_profile(cls, search_term):
-        profiles = cls.objects.filter(
+        profiles = cls.objects.get(
             Q(username__username=search_term) | Q(name__icontains=search_term))
 
         return profiles
